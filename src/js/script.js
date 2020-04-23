@@ -53,7 +53,7 @@
   };
 
   class Product {
-    constructor(id, data){
+    constructor(id, data) {
       const thisProduct = this;
       thisProduct.id = id;
       thisProduct.data = data;
@@ -63,30 +63,30 @@
     }
     renderInMenu() {
       const thisProduct = this;
-      const generatedHTML = templates.menuProduct(thisProduct.data);// generate HTML based on template
+      const generatedHTML = templates.menuProduct(thisProduct.data); // generate HTML based on template
       //console.log('GENERATEHTML:', generatedHTML);
       thisProduct.element = utils.createDOMFromHTML(generatedHTML); // create element using utils.createElementFromHTML
-      const menuContainer = document.querySelector(select.containerOf.menu);// find menu container
-      menuContainer.appendChild(thisProduct.element);// add element to menu
+      const menuContainer = document.querySelector(select.containerOf.menu); // find menu container
+      menuContainer.appendChild(thisProduct.element); // add element to menu
     }
     initAccordion() {
       const thisProduct = this;
       const buttonClicked = thisProduct.element.querySelector(select.menuProduct.clickable); // find the clicable trigger (the element that shoudl react to clicking )
-      buttonClicked.addEventListener('click', function(event) { // START: click event listener to trigger 
+      buttonClicked.addEventListener('click', function (event) { // START: click event listener to trigger 
         event.preventDefault(); // prevent default action for event
-        thisProduct.element.classList.toggle("active"); // toggle active class on element of thisProduct
+        thisProduct.element.classList.toggle('active'); // toggle active class on element of thisProduct
         const allActiveProducts = document.querySelectorAll('active'); // find all active products 
-        for (let activeProduct of allActiveProducts) {// START LOOP: for each active product 
-          if(activeProduct != thisProduct.element) {//START: if the active product isn't the element of thisProduct 
-            activeProduct.classList.remove('active');// remove class active for the active product
-         }// END: if the active product isn't the elemnt of thisProduct
-        }// END LOOP: for each active product 
+        for (let activeProduct of allActiveProducts) { // START LOOP: for each active product 
+          if (activeProduct != thisProduct.element) { //START: if the active product isn't the element of thisProduct 
+            activeProduct.classList.remove('active'); // remove class active for the active product
+          } // END: if the active product isn't the elemnt of thisProduct
+        } // END LOOP: for each active product 
       }); // END: click event listener to trigger
     }
   }
 
   const app = {
-    initMenu: function(){
+    initMenu: function () {
       //const testProduct = new Product();
       //console.log('testProduct:', testProduct);
       //const thisApp = this;
@@ -95,16 +95,16 @@
       const thisApp = this;
 
       console.log('thisApp.data:', this.data);
-      for(let productData in thisApp.data.products){
+      for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
       }
     },
-    initData: function(){
+    initData: function () {
       const thisApp = this;
 
       thisApp.data = dataSource;
     },
-    init: function(){
+    init: function () {
       const thisApp = this;
       console.log('*** App starting ***');
       console.log('thisApp:', thisApp);
