@@ -72,15 +72,15 @@
     initAccordion() {
       const thisProduct = this;
       const buttonClicked = thisProduct.element.querySelector(select.menuProduct.clickable); // find the clicable trigger (the element that shoudl react to clicking )
-      buttonClicked.addEventListener('click', function (event) { // START: click event listener to trigger 
+      buttonClicked.addEventListener('click', function (event) { // START: click event listener to trigger
         event.preventDefault(); // prevent default action for event
-        thisProduct.element.classList.toggle('active'); // toggle active class on element of thisProduct
-        const allActiveProducts = document.querySelectorAll('active'); // find all active products 
-        for (let activeProduct of allActiveProducts) { // START LOOP: for each active product 
-          if (activeProduct != thisProduct.element) { //START: if the active product isn't the element of thisProduct 
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive); // toggle active class on element of thisProduct
+        const allActiveProducts = document.querySelectorAll('article.active'); // find all active products
+        for (let activeProduct of allActiveProducts) { // START LOOP: for each active product
+          if (activeProduct != thisProduct.element) { //START: if the active product isn't the element of thisProduct
             activeProduct.classList.remove('active'); // remove class active for the active product
           } // END: if the active product isn't the elemnt of thisProduct
-        } // END LOOP: for each active product 
+        } // END LOOP: for each active product
       }); // END: click event listener to trigger
     }
   }
