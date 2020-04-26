@@ -75,10 +75,10 @@
       buttonClicked.addEventListener('click', function (event) { // START: click event listener to trigger
         event.preventDefault(); // prevent default action for event
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive); // toggle active class on element of thisProduct
-        const allActiveProducts = document.querySelectorAll('article.active'); // find all active products
+        const allActiveProducts = document.querySelectorAll(select.all.menuProducts); // find all active products
         for (let activeProduct of allActiveProducts) { // START LOOP: for each active product
           if (activeProduct != thisProduct.element) { //START: if the active product isn't the element of thisProduct
-            activeProduct.classList.remove('active'); // remove class active for the active product
+            activeProduct.classList.remove(classNames.menuProduct.wrapperActive); // remove class active for the active product
           } // END: if the active product isn't the elemnt of thisProduct
         } // END LOOP: for each active product
       }); // END: click event listener to trigger
