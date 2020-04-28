@@ -103,7 +103,7 @@
     }
     initOrderForm() {
       const thisProduct = this;
-      console.log("Tu metoda initOrderForm"); 
+      console.log('Tu metoda initOrderForm'); 
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault(); 
         thisProduct.processOrder();
