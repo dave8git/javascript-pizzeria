@@ -60,9 +60,9 @@
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
-      thisProduct.initOrderForm(); 
+      thisProduct.initOrderForm();
       thisProduct.processOrder();
-      console.log('new Product:', thisProduct);
+      //console.log('new Product:', thisProduct);
     }
     renderInMenu() {
       const thisProduct = this;
@@ -85,9 +85,9 @@
       //console.log('thisProduct.cartButton:', thisProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       //console.log('thisProduct.priceElem:', thisProduct.priceElem);
-      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper); 
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       //console.log('thisProduct.imageWrapper:', thisProduct.imageWrapper);
-      
+
     }
     initAccordion() {
       const thisProduct = this;
@@ -105,9 +105,9 @@
     }
     initOrderForm() {
       const thisProduct = this;
-      console.log('Tu metoda initOrderForm'); 
+      //console.log('Tu metoda initOrderForm');
       thisProduct.form.addEventListener('submit', function(event){
-        event.preventDefault(); 
+        event.preventDefault();
         thisProduct.processOrder();
       });
       for(let input of thisProduct.formInputs){
@@ -117,29 +117,31 @@
       }
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
-        thisProduct.processOrder(); 
+        thisProduct.processOrder();
       });
     }
     processOrder() {
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.form); // read all data from the form (using utils.serializeFormToObject) and save it to const formData
       let price = thisProduct.data.price;// set variable price to equal thisProduct.data.price
-      for (let paramId in thisProduct.data.params) {// START LOOP: for each paramId in thisProduct.data.params 
-        const param = thisProduct.data.params[paramId];// save the element in thisProduct.data.params with keyparamId as const param 
-        for (let optionID in param.options) {// START LOOP: for each optionID  in param.options 
+      for (let paramId in thisProduct.data.params) {// START LOOP: for each paramId in thisProduct.data.params
+        const param = thisProduct.data.params[paramId];// save the element in thisProduct.data.params with keyparamId as const param
+        for (let optionID in param.options) {// START LOOP: for each optionID  in param.options
+
           const option = param.options[optionID];// save the element in param.options with key optionId as const option
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionID) > -1;
           if(optionSelected && !option.default) {// START IF: if option is selected and option is not default
-            price += option.price;// add price of option to variable price 
-          } else if (!optionSelected && !option.default) {// END IF: if option is selected and option is not default // START ELSE IF: if option is not selected and option is default 
+            price += option.price;// add price of option to variable price
+            //console.log('----', option.price);
+          } else if (!optionSelected && option.default) {// END IF: if option is selected and option is not default // START ELSE IF: if option is not selected and option is default
             price -= option.price;// deduct price of option from price
-            console.log('PRICE:', price);
+            //console.log('PRICE:', price);
           }
           const activeImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionID);
-          console.log('activeImage:', activeImages);
+          //console.log('activeImage:', activeImages);
           if(optionSelected) {
             for(let activeImage of activeImages) {
-              activeImage.classList.add(classNames.menuProduct.imageVisible); 
+              activeImage.classList.add(classNames.menuProduct.imageVisible);
             }
           } else {
             for (let activeImage of activeImages) {
@@ -148,10 +150,10 @@
           }
         }// END LOOP: for each optionId in param.options
       }// END LOOP: for each paramId in thisProduct.data.params
-      console.log('THISPRICE:', price);
-      thisProduct.priceElem.innerHTML = thisProduct.price;// set content of thisProduct.priceElem to be the value of variable price 
+      //console.log('THISPRICE:', price);
+      thisProduct.priceElem.innerHTML = thisProduct.price;// set content of thisProduct.priceElem to be the value of variable price
       thisProduct.priceElem.innerHTML = price;
-      
+
 
     }
   }
@@ -165,7 +167,7 @@
       //console.log('thisApp.data:', thisApp.data);
       const thisApp = this;
 
-      console.log('thisApp.data:', this.data);
+      //console.log('thisApp.data:', this.data);
       for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
       }
