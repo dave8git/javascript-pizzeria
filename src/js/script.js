@@ -193,6 +193,7 @@
       const newValue = parseInt(value); 
       /* TODO: Add validation */
       thisWidget.value = newValue; 
+      thisWidget.announce();
       thisWidget.input.value = thisWidget.value; 
     }
     initActions() {
