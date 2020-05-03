@@ -219,8 +219,13 @@
     }
     setValue(value){
       const thisWidget = this;
-      const newValue = parseInt(value); 
+      let newValue = parseInt(value); 
       /* TODO: Add validation */
+      if(newValue >= 10) {
+        newValue = 10;
+      } else if(newValue <= 1) {
+        newValue = 1;
+      }
       thisWidget.value = newValue; 
       thisWidget.announce();
       thisWidget.input.value = thisWidget.value; 
