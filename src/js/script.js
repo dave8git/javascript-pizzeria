@@ -116,9 +116,6 @@
       //console.log('thisProduct.imageWrapper:', thisProduct.imageWrapper);
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
       //console.log(thisProduct.amountWidget);
-      
-      //thisCart.dom.wrapper = thisCart.dom.toggleTrigger.querySelector(select.cart.toggleTrigger);
-
     }
     
     initAccordion() {
@@ -230,7 +227,6 @@
       thisWidget.element = element; 
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input); 
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease); 
-      console.log('!!!!!!!!!!:', thisWidget.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease); 
     }
     setValue(value){
@@ -288,6 +284,7 @@
       thisCart.dom.wrapper = element; 
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
+
     }
     initActions(){
       const thisCart = this;
@@ -321,6 +318,7 @@
       thisCartProduct.amount = menuProduct.amount; 
 
       thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params)); 
+      thisCartProduct.initAmountWidget();
 
       console.log('new CartProduct', thisCartProduct); 
       console.log('productData', menuProduct); 
@@ -334,6 +332,17 @@
       thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
       thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit); 
       thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove); 
+    }
+    initAmountWidget(){
+      console.log('!!!!!!!!!!!!initializing');
+      const thisCartProduct = this;
+      thisCartProduct.amountWidget = new amountWidget(thisCartProduct.dom.amountWidget); 
+      
+      thisCartProduct.dom.amountWidget.addEventListener('updated', function(){
+        thisCartProduct.amount = thisCartProduct.amount.value; 
+        thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+      }); 
     }
   }
   const app = {
