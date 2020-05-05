@@ -242,8 +242,11 @@
       } else if(newValue <= 1) {
         newValue = 1;
       }
-      thisWidget.value = newValue; 
-      thisWidget.announce();
+      if((thisWidget.value != newValue) && (newValue >= settings.amountWidget.defaultMin) && (newValue <= settings.amountWidget.defaultMax)) {
+        thisWidget.value = newValue; 
+        thisWidget.announce();
+      }
+ 
       thisWidget.input.value = thisWidget.value; 
     }
     initActions() {
