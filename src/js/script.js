@@ -192,7 +192,7 @@
       //thisProduct.priceElem.innerHTML = thisProduct.price;
       thisProduct.priceSingle = price; //price *= thisProduct.amountWidget.value; // multiply price by amount
       thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
-      thisProduct.priceElem.innerHTML = price; // set content of thisProduct.priceElem to be the value of variable price
+      thisProduct.priceElem.innerHTML = thisProduct.price; // set content of thisProduct.priceElem to be the value of variable price
       console.log(thisProduct.params);
 
     }
