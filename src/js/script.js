@@ -292,6 +292,19 @@
         event.preventDefault();
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
+      thisCart.dom.productList.addEventListener('updated', function () {
+        thisCart.update();
+      });
+      thisCart.dom.productList.addEventListener('remove', function () {
+        thisCart.remove(event.detail.cartProduct);
+      });
+    }
+    remove(cartProduct) {
+      const thisCart = this;
+      console.log(thisCart.products);
+      const index = thisCart.products.indexOf(cartProduct);
+      thisCart.products.splice(index, 1);
+      cartProduct.dom.wrapper.remove();
     }
     add(menuProduct){
       const thisCart = this;
@@ -320,7 +333,7 @@
       thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
-      thisCartProduct.initActions(); 
+      thisCartProduct.initActions();
 
       console.log('new CartProduct', thisCartProduct);
       console.log('productData', menuProduct);
@@ -347,7 +360,7 @@
       });
     }
     remove(){
-      const thisCardProduct = this;
+      const thisCartProduct = this;
 
       const event = new CustomEvent('remove', {
         bubbles: true,
@@ -355,21 +368,23 @@
           cartProduct: thisCartProduct,
         },
       });
-      thisCardProduct.dom.wrapper.dispatchEvent(event);
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
+      console.log(event);
     }
     initActions(){
       const thisCartProduct = this;
-      
+
       thisCartProduct.dom.edit.addEventListener('click', function (event){
-        event.preventDefault(); 
-      }); 
+        event.preventDefault();
+      });
       thisCartProduct.dom.remove.addEventListener('click', function (event){
         event.preventDefault();
-        thisCartProduct.dom.remove();
-        
+        thisCartProduct.remove();
+
       });
     }
   }
+
   const app = {
     initMenu: function () {
       //const testProduct = new Product();
