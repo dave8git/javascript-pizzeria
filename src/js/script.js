@@ -323,16 +323,11 @@
         thisCart.totalNumber += product.amount;
       }
 
-      if(thisCart.subtotalPrice === 0) {
-        thisCart.deliveryFee = 0;
+      if(thisCart.subtotalPrice > 0) {
+        thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+      } else {
         thisCart.totalPrice = 0;
       }
-
-      thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
-
-
-
-
 
       for(let key of thisCart.renderTotalsKeys){
         for(let elem of thisCart.dom[key]) {
