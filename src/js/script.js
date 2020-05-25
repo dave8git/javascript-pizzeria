@@ -317,17 +317,19 @@
       thisCart.totalNumber = 0;
       thisCart.subtotalPrice = 0;
       console.log('thisCart.deliveryFee!!!', thisCart.deliveryFee);
+
       for (let product of thisCart.products) {
         thisCart.subtotalPrice += product.price;
         thisCart.totalNumber += product.amount;
       }
 
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
-      if(thisCart.subtotalPrice == 0) {
+
+      if(thisCart.subtotalPrice.amount === 0) {
         thisCart.deliveryFee = 0;
         thisCart.totalPrice = 0;
-
       }
+
       for(let key of thisCart.renderTotalsKeys){
         for(let elem of thisCart.dom[key]) {
           elem.innerHTML = thisCart[key];
