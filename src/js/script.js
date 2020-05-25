@@ -323,7 +323,11 @@
       }
 
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+      if(thisCart.subtotalPrice == 0) {
+        thisCart.deliveryFee = 0;
+        thisCart.totalPrice = 0;
 
+      }
       for(let key of thisCart.renderTotalsKeys){
         for(let elem of thisCart.dom[key]) {
           elem.innerHTML = thisCart[key];
@@ -340,6 +344,7 @@
       const index = thisCart.products.indexOf(cartProduct);
       thisCart.products.splice(index, 1);
       cartProduct.dom.wrapper.remove();
+      this.update();
     }
     add(menuProduct){
       const thisCart = this;
