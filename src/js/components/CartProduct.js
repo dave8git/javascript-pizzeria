@@ -1,5 +1,5 @@
 import {select} from '../settings.js';
-import {amountWidget} from './amountWidget.js';
+import {AmountWidget} from './amountWidget.js';
 export class CartProduct {
   constructor(menuProduct, element) {
     const thisCartProduct = this;
@@ -29,7 +29,7 @@ export class CartProduct {
   }
   initAmountWidget(){
     const thisCartProduct = this;
-    thisCartProduct.amountWidget = new amountWidget(thisCartProduct.dom.amountWidget);
+    thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
 
     thisCartProduct.dom.amountWidget.addEventListener('updated', function(){
       console.log(thisCartProduct);

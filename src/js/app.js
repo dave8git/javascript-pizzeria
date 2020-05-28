@@ -6,8 +6,12 @@ import {
 } from './components/Cart.js';
 import {
   select,
-  settings
+  settings,
+  classNames
 } from './settings.js';
+import {
+  Booking
+} from './components/Booking.js';
 
 const app = {
   initMenu: function () {
@@ -50,7 +54,9 @@ const app = {
     console.log('settings:', settings);
     //console.log('templates:', templates);
     thisApp.initCart();
+    thisApp.initPages();
     thisApp.initData();
+    thisApp.initBooking();
     //thisApp.initMenu();
 
   },
@@ -65,6 +71,54 @@ const app = {
       app.cart.add(event.detail.product);
     });
   },
+  initPages: function() {
+    const thisApp = this;
+    thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children);
+    thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links));
 
+    let pagesMatchingHash = [];
+
+    if (window.location.hash.length >2 ) {
+      const idFromHash = window.location.hash.replace('#/', '');
+      pagesMatchingHash = thisApp.pages.filter(function (page){
+        return page.id == idFromHash;
+      });
+    }
+
+    for(let link of thisApp.navLinks) {
+      link.addEventListener('click', function(event){
+        const clickedElement = this;
+        event.preventDefault();
+
+        const href = clickedElement.getAttribute('href');
+        const hrefModified = href.replace('#','');
+        thisApp.activatePage(hrefModified);
+      });
+    }
+    // if(pagesMatchingHash.length) {
+    //   thisApp.activatePage(pagesMatchingHash[0].id);
+    // } else {
+    //   thisApp.activatePage(thisApp.pages[0].id);
+    // }
+    thisApp.activatePage(pagesMatchingHash.length ? pagesMatchingHash[0].id : thisApp.pages[0].id);
+  },
+  activatePage: function(pageId) {
+    const thisApp = this;
+    for(let link of thisApp.navLinks){
+      link.classList.toggle(classNames.nav.active, link.getAttribute('href') == '#' + pageId);
+    }
+    for (let page of thisApp.pages) {
+      page.classList.toggle(classNames.nav.active, page.getAttribute('id') == pageId);
+    }
+    window.location.hash = '#/' + pageId;
+  },
+  initBooking: function() {
+    const thisApp = this;
+    thisApp.siteReserverContainer = document.querySelector(select.containerOf.booking);
+    console.log('KONSOL2', thisApp.bookingContainer);
+    thisApp.booking = new Booking(thisApp.siteReserverContainer);
+
+
+  }
 };
 app.init();
