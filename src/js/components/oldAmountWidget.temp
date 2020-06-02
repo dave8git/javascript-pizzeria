@@ -2,20 +2,23 @@ import {select, settings} from '../settings.js';
 import {BaseWidget} from './BaseWidget.js';
 
 export class AmountWidget extends BaseWidget {
-  constructor(wrapper) {
+  constructor(element) {
     super(element, settings.amountWidget.defaultValue);
     const thisWidget = this;
-    
-    thisWidget.getElements(); 
+    thisWidget.getElements(element);
+    thisWidget.setValue(settings.amountWidget.defaultValue);
     thisWidget.initActions();
+    console.log('AmountWidget:', thisWidget);
+    console.log('constructor arguments:', element);
 
   }
-  getElements(){
+  getElements(wrapper){
     const thisWidget = this;
 
-    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.amount.input);
-    thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
-    thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
+    thisWidget.element = element;
+    thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+    thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+    thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
   }
   setValue(value){
     const thisWidget = this;
@@ -32,9 +35,6 @@ export class AmountWidget extends BaseWidget {
     }
 
     thisWidget.input.value = thisWidget.value;
-  }
-  isValid(newValue){
-    return !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax;
   }
   initActions() {
     const thisWidget = this;
